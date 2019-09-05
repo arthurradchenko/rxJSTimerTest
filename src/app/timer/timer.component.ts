@@ -21,45 +21,36 @@ export class TimerComponent implements OnInit {
     this.numericTime = 0;
   }
 
-  wait(){
-    if(this.paused){
+  wait() {
+    if (this.paused) {
       this.sub = this.timer.subscribe((n: number) => {
-        this.numericTime = (n + this.timePause) * 1000;
+        this.numericTime = n + this.timePause;
       })
       this.paused = false;
-    } else{
+    } else {
       this.sub.unsubscribe();
-      this.timePause = this.numericTime / 1000 + 1;
+      this.timePause = this.numericTime + 1;
       this.paused = true;
     }
   }
 
-  stop(){
-    if(!this.stopped){ 
+  stop() {
+    if (!this.stopped) {
       this.sub.unsubscribe();
       this.stopped = true;
-     } 
-    else { 
-      this.numericTime =0;
+    }
+    else {
+      this.numericTime = 0;
       this.sub = this.timer.subscribe((n: number) => {
-        this.numericTime = (n+1) * 1000;
+        this.numericTime = n + 1;
       })
       this.stopped = false;
     }
   }
 
-  reset(){
+  reset() {
     this.numericTime = 0;
-    if(this.sub !== undefined){
-      this.sub.unsubscribe()
-      this.sub = this.timer.subscribe((n: number) => {
-        this.numericTime = (n+1) * 1000;
-      })
-    }    
+    this.sub.unsubscribe()
+    this.stopped = true;
   }
-
-  ngOnDestroy(){
-    this.sub.unsubscribe();
-  }
-
 }

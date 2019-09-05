@@ -1,9 +1,9 @@
 <div class="timer">
-    <div class="main-timer">{{numericTime | date: 'mm:ss'}}</div>
+    <div class="main-timer">{{numericTime * 1000 | date: 'mm:ss'}}</div>
     <div class="control-panel">
         <button class="btn-primary controls" (click)="stop()">Start/Stop</button>
-        <button class="btn-primary controls" (click)="wait()">Wait</button>
+        <button class="btn-primary controls" name="wait" (click)="wait()">Wait</button>
         <button class="btn-primary controls" (click)="reset()">Reset</button>
     </div>
-    <div *ngIf="stopped && this.sub !== undefined" class="result">Time: {{numericTime | date: 'mm:ss'}}</div>
+    <div *ngIf="stopped && this.sub !== undefined" class="result">Time: {{numericTime * 1000 | date: 'mm:ss'}}</div>
 </div>
